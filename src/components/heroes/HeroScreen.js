@@ -1,5 +1,5 @@
-import React from 'react'
-import { Redirect, useParams } from 'react-router-dom'
+import React, {useMemo} from 'react';
+import { Redirect, useParams } from 'react-router-dom';
 import { getHeroById } from '../../selectors/getHeroById';
 
 export const HeroScreen = ({history}) => {
@@ -7,7 +7,9 @@ export const HeroScreen = ({history}) => {
     const {heroeId} = useParams();
     console.log(heroeId);
 
-    const hero = getHeroById(heroeId);
+    // const hero = getHeroById(heroeId);
+
+    const hero = useMemo(() => getHeroById(heroeId), [heroeId])
 
     if ( !hero )
     {
@@ -36,7 +38,7 @@ export const HeroScreen = ({history}) => {
                 <img 
                     src={`../assets/heroes/${heroeId}.jpg`}
                     alt={superhero}
-                    className="img-thumbnail"
+                    className="img-thumbnail animate__animated animate__fadeInLeft"
                 />    
             </div>
             <div className="col-8">
